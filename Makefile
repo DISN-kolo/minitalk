@@ -6,7 +6,7 @@
 #    By: akozin <akozin@student.42barcelona.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/20 11:47:01 by akozin            #+#    #+#              #
-#    Updated: 2024/02/21 16:33:39 by akozin           ###   ########.fr        #
+#    Updated: 2024/02/21 17:50:49 by akozin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ SRCS = server.c \
 	   client.c
 
 OBJS = $(SRCS:.c=.o)
+DS = $(SRCS:.c=.d)
 
 LIBFT = libft/
 LIBFT_A = $(addprefix $(LIBFT), libft.a)
@@ -36,7 +37,9 @@ client:	client.o $(LIBFT_A) $(FTPRINTF_A)
 	$(CC) -o $@ $< -L$(LIBFT) -lft -L$(FTPRINTF) -lftprintf
 
 $(OBJS): %.o: %.c Makefile
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -MMD -MP -c -o $@ $<
+
+-include $(DS)
 
 $(LIBFT_A):
 	$(MAKE) -C $(LIBFT)
@@ -47,14 +50,14 @@ $(FTPRINTF_A):
 clean:
 	$(MAKE) clean -C $(FTPRINTF)
 	$(MAKE) clean -C $(LIBFT)
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(DS)
 
 fclean:
 	$(MAKE) fclean -C $(FTPRINTF)
 	$(MAKE) fclean -C $(LIBFT)
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(DS)
 	$(RM) server
 
 re:		fclean all
 
-.PHONY = all clean fclean re
+.PHONY: all clean fclean re
