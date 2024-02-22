@@ -6,7 +6,7 @@
 #    By: akozin <akozin@student.42barcelona.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/20 11:47:01 by akozin            #+#    #+#              #
-#    Updated: 2024/02/21 17:50:49 by akozin           ###   ########.fr        #
+#    Updated: 2024/02/22 18:35:42 by akozin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,11 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 MAKE = make
 
-all:	server client
+all:		make_libs server client
+
+make_libs:
+	$(MAKE) -C $(LIBFT)
+	$(MAKE) -C $(FTPRINTF)
 
 server:	server.o $(LIBFT_A) $(FTPRINTF_A)
 	$(CC) -o $@ $< -L$(LIBFT) -lft -L$(FTPRINTF) -lftprintf
@@ -40,12 +44,6 @@ $(OBJS): %.o: %.c Makefile
 	$(CC) $(CFLAGS) -MMD -MP -c -o $@ $<
 
 -include $(DS)
-
-$(LIBFT_A):
-	$(MAKE) -C $(LIBFT)
-
-$(FTPRINTF_A):
-	$(MAKE) -C $(FTPRINTF)
 
 clean:
 	$(MAKE) clean -C $(FTPRINTF)
