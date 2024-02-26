@@ -6,7 +6,7 @@
 #    By: akozin <akozin@student.42barcelona.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/20 11:47:01 by akozin            #+#    #+#              #
-#    Updated: 2024/02/22 18:35:42 by akozin           ###   ########.fr        #
+#    Updated: 2024/02/26 16:50:47 by akozin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ fclean:
 	$(MAKE) fclean -C $(LIBFT)
 	$(RM) $(OBJS) $(DS)
 	$(RM) server
+	$(RM) client
 
 re:		fclean all
 
